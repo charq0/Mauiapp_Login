@@ -5,7 +5,19 @@
         public App()
         {
             InitializeComponent();
+            string? usuario_log = null;
             MainPage = new Login();
+
+            Task.Run(async () =>
+            {
+                usuario_log = await SecureStorage.Default.GetAsync("usuario_logado");
+
+                if (usuario_log != null)
+                    {
+                  
+                        MainPage= new Protegida();
+                    }
+            });
         }
 
         protected override Window CreateWindow(IActivationState activationState)
